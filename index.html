@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuenta Regresiva de Cumpleaños</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            position: relative;
+        }
+
+        #confetti-container {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .countdown {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .countdown div {
+            background: #fff;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 24px;
+            color: #ff6347;
+        }
+
+        .countdown img {
+            width: 350px; /* Ajusta el tamaño de la imagen según sea necesario */
+            margin-top: 20px;
+        }
+
+        .countdown::before {
+            content: "¡Falta poco para tu cumpleaños!🥳Mejor Amiga🥳";
+            display: block;
+            font-size: 22px;
+            font-weight: normal;
+            color: #ff6347;
+            margin-bottom: 15px;
+        }
+
+        .message {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 1000;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .message img {
+            width: 300px;
+            height: auto; /* Mantén la proporción de la imagen */
+            margin-bottom: 20px;
+        }
+
+        .message p {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .message audio {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="countdown" id="countdown"></div>
+    <div id="confetti-container"></div>
+
+    <div class="message" id="birthday-message">
+        <img src="https://i.pinimg.com/564x/18/3e/a9/183ea975015aeb1c90eba8b254c1f57d.jpg" alt="Tarta de Cumpleaños">
+        <p>¡Feliz Cumpleaños! Mejor amiga<br>💖🤩🥳</p>
+        <audio controls autoplay>
+            <source src="https://example.com/happy-birthday-song.mp3" type="audio/mpeg">
+            Tu navegador no soporta el elemento de audio.
+        </audio>
+    </div>
+
+    <!-- Audio constante fuera del bloque de actualización -->
+    <audio id="birthday-audio" style="position: absolute; margin-top: 650px;" controls autoplay>
+        <source src="Amigo.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+    <img src="zoo.png" style="position: absolute; width: 250px; margin-top: -670px; margin-left: -135px;" alt="">
+    <img src="b.png" style="position: absolute; width: 119px; margin-top: -700px; margin-right: -220px;" alt="">
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+    <script>
+        // Fecha del cumpleaños
+        const birthday = new Date('2024-08-21T00:00:00');
+        
+        // Función para actualizar la cuenta regresiva
+        function updateCountdown() {
+            const now = new Date();
+            const timeDiff = birthday - now;
+
+            if (timeDiff <= 0) {
+                document.getElementById('countdown').textContent = `¡Feliz Cumpleaños!`;
+                document.getElementById('birthday-message').style.display = 'flex';
+                createConfetti();
+                return;
+            }
+
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            const countdownElement = document.getElementById('countdown');
+            countdownElement.innerHTML = `
+                <div>${days} días</div>
+                <div>${hours} horas</div>
+                <div>${minutes} minutos</div>
+                <div>${seconds} segundos</div>
+                <img src="https://media1.tenor.com/m/Nt6Zju-KjTsAAAAC/luffy-one-piece.gif">
+            `;
+        }
+
+        // Actualizar la cuenta regresiva al cargar la página
+        updateCountdown();
+
+        // Actualizar la cuenta regresiva cada segundo
+        setInterval(updateCountdown, 1000); // 1 segundo
+
+        // Particles.js setup for confetti
+        particlesJS('confetti-container', {
+            "particles": {
+                "number": {
+                    "value": 150,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": ["#ff6347", "#ffd700", "#00bfff", "#32cd32"]
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    }
+                },
+                "opacity": {
+                    "value": 0.7,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 5,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 3,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": false
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 4,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": false,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                }
+            },
+            "retina_detect": true
+        });
+
+        // Create confetti effect
+        function createConfetti() {
+            gsap.to("#confetti-container", {
+                duration: 3,
+                opacity: 1,
+                ease: "power1.inOut",
+                onComplete: () => {
+                    gsap.to("#confetti-container", {
+                        duration: 3,
+                        opacity: 0,
+                        ease: "power1.inOut"
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
