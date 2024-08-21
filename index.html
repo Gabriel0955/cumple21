@@ -17,6 +17,7 @@
             color: #fff;
             font-family: 'Arial', sans-serif;
             position: relative;
+            text-align: center;
         }
 
         #confetti-container {
@@ -30,7 +31,7 @@
         }
 
         .countdown {
-            font-size: 36px;
+            font-size: 24px;
             font-weight: bold;
             text-align: center;
             z-index: 1000;
@@ -38,37 +39,37 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 10px;
             border-radius: 15px;
             background: rgba(255, 255, 255, 0.8);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
             position: relative;
-            width: 80%;
-            max-width: 600px;
+            width: 90%;
+            max-width: 300px;
         }
 
         .countdown div {
             background: #fff;
-            padding: 10px 20px;
+            padding: 5px 10px;
             margin: 5px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            font-size: 24px;
+            font-size: 18px;
             color: #ff6347;
         }
 
         .countdown img {
-            width: 350px; /* Ajusta el tamaño de la imagen según sea necesario */
+            width: 250px;
             margin-top: 20px;
         }
 
         .countdown::before {
-            content: "¡Falta poco para tu cumpleaños!🥳Mejor Amiga🥳";
+            content: "¡Falta poco para tu cumpleaños!🥳 Mejor Amiga 🥳";
             display: block;
-            font-size: 22px;
+            font-size: 16px;
             font-weight: normal;
             color: #ff6347;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .message {
@@ -85,23 +86,61 @@
             align-items: center;
             text-align: center;
             z-index: 1000;
-            padding: 20px;
+            padding: 10px;
             overflow: hidden;
         }
 
         .message img {
-            width: 300px;
-            height: auto; /* Mantén la proporción de la imagen */
-            margin-bottom: 20px;
+            width: 200px;
+            height: auto;
+            margin-bottom: 15px;
         }
 
         .message p {
-            font-size: 36px;
+            font-size: 24px;
             margin-bottom: 20px;
         }
 
         .message audio {
             display: block;
+        }
+
+        audio {
+            position: absolute;
+            bottom: 20px;
+            width: 90%;
+            max-width: 300px;
+        }
+
+        img.zoo, img.b {
+            position: absolute;
+            width: 150px;
+        }
+
+        img.zoo {
+            bottom: 80px;
+            left: 10px;
+        }
+
+        img.b {
+            bottom: 80px;
+            right: 10px;
+        }
+
+        @media screen and (max-width: 600px) {
+            .countdown {
+                font-size: 18px;
+                padding: 5px;
+            }
+
+            .countdown div {
+                font-size: 14px;
+                padding: 3px 6px;
+            }
+
+            .message p {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
@@ -119,22 +158,20 @@
         </audio>
     </div>
 
-    <!-- Audio constante fuera del bloque de actualización -->
-    <audio id="birthday-audio" style="position: absolute; margin-top: 650px;" controls autoplay>
+    <audio id="birthday-audio" controls autoplay>
         <source src="Amigo.mp3" type="audio/mpeg">
         Tu navegador no soporta el elemento de audio.
     </audio>
-    <img src="zoo.png" style="position: absolute; width: 250px; margin-top: -670px; margin-left: -135px;" alt="">
-    <img src="b.png" style="position: absolute; width: 119px; margin-top: -700px; margin-right: -220px;" alt="">
+    <img src="zoo.png" class="zoo" alt="">
+    <img src="b.png" class="b" alt="">
+
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
     <script>
-        // Fecha del cumpleaños
         const birthday = new Date('2024-08-21T00:00:00');
-        
-        // Función para actualizar la cuenta regresiva
+
         function updateCountdown() {
             const now = new Date();
             const timeDiff = birthday - now;
@@ -161,13 +198,9 @@
             `;
         }
 
-        // Actualizar la cuenta regresiva al cargar la página
         updateCountdown();
+        setInterval(updateCountdown, 1000);
 
-        // Actualizar la cuenta regresiva cada segundo
-        setInterval(updateCountdown, 1000); // 1 segundo
-
-        // Particles.js setup for confetti
         particlesJS('confetti-container', {
             "particles": {
                 "number": {
@@ -242,7 +275,6 @@
             "retina_detect": true
         });
 
-        // Create confetti effect
         function createConfetti() {
             gsap.to("#confetti-container", {
                 duration: 3,
