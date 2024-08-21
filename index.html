@@ -46,6 +46,7 @@
             position: relative;
             width: 90%;
             max-width: 300px;
+            margin-top: 20px; /* Añadido margen superior */
         }
 
         .countdown div {
@@ -59,7 +60,7 @@
         }
 
         .countdown img {
-            width: 250px;
+            width: 200px;
             margin-top: 20px;
         }
 
@@ -86,8 +87,8 @@
             align-items: center;
             text-align: center;
             z-index: 1000;
-            padding: 10px;
-            overflow: hidden;
+            padding: 20px;
+            box-sizing: border-box; /* Asegura que el padding no aumente el tamaño del elemento */
         }
 
         .message img {
@@ -111,22 +112,21 @@
         audio {
             position: absolute;
             bottom: 20px;
-            width: 90%;
+            width: 100%;
             max-width: 300px;
         }
 
-        img.zoo, img.b {
+        img.zoo {
             position: absolute;
             width: 150px;
-        }
-
-        img.zoo {
-            bottom: 80px;
+            bottom: 120px;
             left: 10px;
         }
 
         img.b {
-            bottom: 80px;
+            position: absolute;
+            width: 150px;
+            bottom: 120px;
             right: 10px;
         }
 
@@ -148,6 +148,10 @@
             audio {
                 width: 100%;
                 max-width: 100%;
+            }
+
+            .message img {
+                width: 150px;
             }
         }
     </style>
