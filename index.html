@@ -129,7 +129,10 @@
             bottom: 120px;
             right: 10px;
         }
-
+        .birt{
+                position: absolute;
+                margin-bottom: 100px !important;
+            }
         @media screen and (max-width: 600px) {
             .countdown {
                 font-size: 18px;
@@ -153,6 +156,7 @@
             .message img {
                 width: 150px;
             }
+
         }
     </style>
 </head>
@@ -164,7 +168,7 @@
     <div class="message" id="birthday-message">
         <img src="https://i.pinimg.com/564x/18/3e/a9/183ea975015aeb1c90eba8b254c1f57d.jpg" alt="Tarta de Cumpleaños">
         <p>¡Feliz Cumpleaños! Mejor amiga<br>💖🤩🥳</p>
-        <audio id="birthday-audio" controls autoplay>
+        <audio class="birt" controls autoplay>
             <source src="cumple.mp3" type="audio/mpeg">
             Tu navegador no soporta el elemento de audio.
         </audio>
